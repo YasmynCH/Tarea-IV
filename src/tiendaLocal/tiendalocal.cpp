@@ -77,7 +77,7 @@ void TiendaLocal::CargarDesdeStream(istream *streamEntrada){
     }
 }
 
-ProductoLocal TiendaLocal::ModificarNombreProducto(int idProductoAModificar, QString nombreModificado){
+ProductoLocal TiendaLocal::ModificarNombreProducto(int idProductoAModificar, QString nombreModificar, int existenciasAModificar){
 
         ifstream streamEntrada;
         streamEntrada.open("archivo_test.dat", ios::in | ios::binary);
@@ -104,7 +104,8 @@ ProductoLocal TiendaLocal::ModificarNombreProducto(int idProductoAModificar, QSt
             streamEntrada.seekg(posicion);
             streamEntrada.read((char *) &productoEncontrado, sizeof(ProductoLocal));
 
-            productoEncontrado.setNombre(nombreModificado);
+            productoEncontrado.setNombre(nombreModificar);
+            productoEncontrado.setExistencias(existenciasAModificar);
 
 
         }

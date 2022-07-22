@@ -24,6 +24,7 @@ void AgregarProducto::CargarInformacion(int id, std::string nombre, int existenc
 
     QString stringExistencias = QString::number(existencias);
     this->ui->txtExistencias->setText(stringExistencias);
+
 }
 
 int AgregarProducto::getId()
@@ -46,3 +47,4 @@ int AgregarProducto::getExistencias()
     int existencias = stringExistencias.toInt();
     return existencias;
 }
+

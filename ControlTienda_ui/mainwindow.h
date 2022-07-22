@@ -24,6 +24,10 @@ private slots:
 
     void on_btnAbrirArchivo_clicked();
 
+    void on_btnModificar_clicked();
+
+    void on_btnEliminar_clicked();
+
 private:
     Ui::MainWindow *ui;
 };

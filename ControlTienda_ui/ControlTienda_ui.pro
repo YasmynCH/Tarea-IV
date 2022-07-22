@@ -10,16 +10,22 @@ CONFIG += c++17
 
 SOURCES += \
     agregarproducto.cpp \
+    eliminar.cpp \
     main.cpp \
-    mainwindow.cpp
+    mainwindow.cpp \
+    modificar.cpp
 
 HEADERS += \
     agregarproducto.h \
-    mainwindow.h
+    eliminar.h \
+    mainwindow.h \
+    modificar.h
 
 FORMS += \
     agregarproducto.ui \
-    mainwindow.ui
+    eliminar.ui \
+    mainwindow.ui \
+    modificar.ui
 
 TRANSLATIONS += \
     ControlTienda_ui_es_CR.ts

@@ -30,7 +30,7 @@ public:
     void AgregarProducto(ProductoLocal *producto);
     void BuscarProducto(istream *streamEntrada, int idProductoBuscado);
     void EliminarProducto(int idProductoAEliminar);
-    ProductoLocal ModificarNombreProducto(int idProductoAModificar, QString nombreModificado);
+    ProductoLocal ModificarNombreProducto(int idProductoAModificar, QString nombreModificar, int existenciaModificar);
     void GuardarEnStreamBinario(ostream *streamSalida);
     void CargarDesdeStream(istream *streamEntrada);
 

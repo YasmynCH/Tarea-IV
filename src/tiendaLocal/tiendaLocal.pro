@@ -15,6 +15,7 @@ SOURCES += \
 
 HEADERS += \
     excepcionNoSePuedeLeerArchivo.h \
+    excepcionProductoInexistente.h \
     productoLocal.h \
     tiendalocal.h
 

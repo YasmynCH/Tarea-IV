@@ -1,6 +1,8 @@
 #include "mainwindow.h"
 #include "ui_mainwindow.h"
 #include "agregarproducto.h"
+#include "eliminar.h"
+#include "modificar.h"
 #include <QMessageBox>
 #include <QString>
 #include <QFileDialog>
@@ -35,7 +37,7 @@ void MainWindow::on_btnAgregar_clicked()
     if (resultado == QDialog::Accepted) {
 
       [[maybe_unused]] int id = agregarProductoNuevo.getId();
-       std::string nombre = agregarProductoNuevo.getNombre();
+      std::string nombre = agregarProductoNuevo.getNombre();
       [[maybe_unused]] int existencias = agregarProductoNuevo.getExistencias();
 
      try {
@@ -50,6 +52,8 @@ void MainWindow::on_btnAgregar_clicked()
 
            [[maybe_unused]] TiendaLocal *tienda= new TiendaLocal(this->ui->txtNombreTienda->text(), this->ui->txtDireccionWeb->text(), this->ui->txtDireccionFisica->text(), this->ui->txtTelefono->text());
            tienda->AgregarProducto(producto);
+
+
        }
 
      catch (...){
@@ -68,7 +72,6 @@ void MainWindow::on_btnConsultar_clicked()
 
     if (itemSeleccionado == nullptr)
     {
-        // no hay ítem seleccionado
         QMessageBox *msgbox = new QMessageBox(this);
         msgbox->setWindowTitle("Lista de Productos");
         msgbox->setText("No hay ítem seleccionado");
@@ -88,7 +91,7 @@ void MainWindow::on_btnConsultar_clicked()
         AgregarProducto agregarProducto {this};
         agregarProducto.CargarInformacion(idProducto, nombreProducto, existencias);
 
-        int resultado = agregarProducto.exec();
+        [[maybe_unused]]int resultado = agregarProducto.exec();
 
     }
 
@@ -137,4 +140,77 @@ void MainWindow::on_btnAbrirArchivo_clicked()
         msgbox->open();
     }
 }
+
+
+void MainWindow::on_btnModificar_clicked()
+{
+
+    modificar modificar (this);
+    int resultado = modificar.exec();
+
+    if (resultado == QDialog::Accepted) {
+
+     TiendaLocal *tienda= new TiendaLocal(this->ui->txtNombreTienda->text(), this->ui->txtDireccionWeb->text(), this->ui->txtDireccionFisica->text(), this->ui->txtTelefono->text());
+     QListWidgetItem *itemSeleccionado = this->ui->lista->currentItem();
+    try {
+        QString stringID = itemSeleccionado->data(1).toString();
+        QString stringNombre = itemSeleccionado->data(2).toString();
+        QString stringExistencias = itemSeleccionado->data(3).toString();
+
+        int idProducto = stringID.toInt();
+        string nombreProducto = stringNombre.toStdString();
+        int existencias = stringExistencias.toInt();
+
+        tienda->ModificarNombreProducto(idProducto, nombreProducto.c_str(), existencias);
+
+    }catch (...){
+            QMessageBox *msgbox = new QMessageBox(this);
+            msgbox->setWindowTitle("Error al ingresar los datos");
+            msgbox->setText("Sin modificaciones");
+            msgbox->open();
+        }
+     }
+    else
+    {
+        QMessageBox *msgbox = new QMessageBox(this);
+        msgbox->setWindowTitle("Error al ingresar los datos");
+        msgbox->setText("Sin modificaciones");
+        msgbox->open();
+    }
+}
+
+
+void MainWindow::on_btnEliminar_clicked()
+{
+    eliminar eliminar (this);
+    int resultado = eliminar.exec();
+
+    if (resultado == QDialog::Accepted) {
+
+     TiendaLocal *tienda= new TiendaLocal(this->ui->txtNombreTienda->text(), this->ui->txtDireccionWeb->text(), this->ui->txtDireccionFisica->text(), this->ui->txtTelefono->text());
+     QListWidgetItem *itemSeleccionado = this->ui->lista->currentItem();
+    try {
+        QString stringID = itemSeleccionado->data(1).toString();
+
+        int idProducto = stringID.toInt();
+
+        tienda->EliminarProducto(idProducto);
+
+    }catch (...){
+            QMessageBox *msgbox = new QMessageBox(this);
+            msgbox->setWindowTitle("Error al ingresar los datos");
+            msgbox->setText("Sin modificaciones");
+            msgbox->open();
+        }
+     }
+    else
+    {
+        QMessageBox *msgbox = new QMessageBox(this);
+        msgbox->setWindowTitle("Error al eliminar los datos");
+        msgbox->setText("Sin modificaciones");
+        msgbox->open();
+    }
+}
+
+
 
